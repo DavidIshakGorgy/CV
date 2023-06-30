@@ -1,0 +1,43 @@
+import boto3
+
+def lambda_handler(event, context):
+    # Create a DynamoDB client
+    dynamodb = boto3.client('dynamodb')
+    
+    # Specify the table name and key
+    table_name = 'cloud-resume-challange-visitors-counter'
+    key = '1'
+    
+    # Get the current item from DynamoDB
+    response = dynamodb.get_item(
+        TableName=table_name,
+        Key={
+            'id': {'S': key}
+        }
+    )
+    
+    # Check if the item exists in the DynamoDB table
+    if 'Item' in response:
+        # Retrieve the current "views" value
+        views_value = int(response['Item'].get('views', {'S': '1'})['N'])
+    else:
+        # Set the initial "views" value if the item doesn't exist
+        views_value = 0
+    
+    # Increase the "views" value by 1
+    views_value += 1
+    
+    # Update the "views" value in DynamoDB
+    dynamodb.put_item(
+        TableName=table_name,
+        Item={
+            'id': {'S': key},
+            'views': {'N': str(views_value)}
+        }
+    )
+    
+    # Return the updated "views" value
+    return {
+        'statusCode': 200,
+        'body': f'Updated views value: {views_value}'
+    }
