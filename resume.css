@@ -72,5 +72,37 @@ a#pdf:hover { background: #222; }
 .yui-gf .yui-u{width:80.2%;}
 .yui-gf div.first{width:12.3%;}
 
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+}
+
+.skills-category {
+    border: 1px solid #ddd;
+    padding: 1em;
+    border-radius: 5px;
+}
+
+.skills-category h3 {
+    font-size: 120%;
+    margin-bottom: 0.5em;
+}
+
+.talent {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.talent li {
+    margin-bottom: 0.5em;
+    line-height: 1.5;
+}
+
+
+
+
+
 
 
